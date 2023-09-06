@@ -23,6 +23,25 @@ module.exports = {
 
           interaction.message.edit({ embeds: [newEmbed] });
         }
+
+        if (interaction.customId === 'end_giveaway') {
+          if (
+            interaction.user.username !==
+            interaction.message.embeds[0].fields[0].value
+          )
+            return interaction.reply({
+              content: 'You are not the giveaway host!',
+              ephemeral: true,
+            });
+          const oldEmbed = interaction.message.embeds[0];
+
+          const fields = oldEmbed.fields;
+          fields[3].value = 'Ended';
+
+          const newEmbed = EmbedBuilder.from(oldEmbed).setFields(fields);
+
+          interaction.message.edit({ embeds: [newEmbed], components: [] });
+        }
       }
     } catch (error) {
       console.error('[ERROR] ', error);
