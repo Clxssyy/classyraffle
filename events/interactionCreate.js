@@ -14,6 +14,15 @@ module.exports = {
       }
       if (interaction.isButton()) {
         if (interaction.customId === 'enter_giveaway') {
+          if (
+            interaction.user.username ===
+            interaction.message.embeds[0].fields[0].value
+          )
+            return interaction.reply({
+              content: 'You are the giveaway host!',
+              ephemeral: true,
+            });
+
           const oldEmbed = interaction.message.embeds[0];
 
           const fields = oldEmbed.fields;
@@ -37,6 +46,7 @@ module.exports = {
               content: 'You are not the giveaway host!',
               ephemeral: true,
             });
+
           const oldEmbed = interaction.message.embeds[0];
 
           const fields = oldEmbed.fields;
