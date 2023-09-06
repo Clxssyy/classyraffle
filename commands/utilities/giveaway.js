@@ -90,7 +90,7 @@ module.exports = {
     const endButton = await new ButtonBuilder()
       .setCustomId('end_giveaway')
       .setLabel('End!')
-      .setStyle(ButtonStyle.Secondary);
+      .setStyle(ButtonStyle.Danger);
 
     const row = await new ActionRowBuilder().addComponents(
       enterButton,
@@ -104,7 +104,9 @@ module.exports = {
         .setThumbnail(hostPicURL)
         .addFields(
           { name: 'Host', value: hostName },
-          { name: 'Prize', value: prize },
+          { name: 'Prize', value: prize, inline: true },
+          { name: 'Winner', value: 'N/A', inline: true },
+          { name: '\u200B', value: '\u200B', inline: true },
           { name: 'Participants', value: '0', inline: true },
           { name: 'Ends', value: discordTimestamp, inline: true }
         );
@@ -123,7 +125,9 @@ module.exports = {
         .setDescription(description)
         .addFields(
           { name: 'Host', value: hostName },
-          { name: 'Prize', value: prize },
+          { name: 'Prize', value: prize, inline: true },
+          { name: 'Winner', value: 'N/A', inline: true },
+          { name: '\u200B', value: '\u200B', inline: true },
           { name: 'Participants', value: '0', inline: true },
           { name: 'Ends', value: discordTimestamp, inline: true }
         );
