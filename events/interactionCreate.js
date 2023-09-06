@@ -22,6 +22,10 @@ module.exports = {
           const newEmbed = EmbedBuilder.from(oldEmbed).setFields(fields);
 
           interaction.message.edit({ embeds: [newEmbed] });
+          interaction.reply({
+            content: 'You have entered the giveaway!',
+            ephemeral: true,
+          });
         }
 
         if (interaction.customId === 'end_giveaway') {
