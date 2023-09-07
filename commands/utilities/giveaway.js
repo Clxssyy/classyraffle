@@ -62,6 +62,7 @@ module.exports = {
       ephemeral: true,
     });
 
+    const description = interaction.options.getString('description') ?? ' ';
     const name = interaction.options.getString('name');
     const prize = interaction.options.getString('prize');
     const year = interaction.options.getInteger('year');
@@ -97,45 +98,23 @@ module.exports = {
       endButton
     );
 
-    if (interaction.options.getString('description') === null) {
-      const response = await new EmbedBuilder()
-        .setColor(0x6ab7dd)
-        .setTitle(name)
-        .setThumbnail(hostPicURL)
-        .addFields(
-          { name: 'Host', value: hostName },
-          { name: 'Prize', value: prize, inline: true },
-          { name: 'Winner', value: 'N/A', inline: true },
-          { name: '\u200B', value: '\u200B', inline: true },
-          { name: 'Participants', value: '0', inline: true },
-          { name: 'Ends', value: discordTimestamp, inline: true }
-        );
+    const response = await new EmbedBuilder()
+      .setColor(0x6ab7dd)
+      .setTitle(name)
+      .setThumbnail(hostPicURL)
+      .setDescription(description)
+      .addFields(
+        { name: 'Host', value: hostName },
+        { name: 'Prize', value: prize, inline: true },
+        { name: 'Winner', value: 'N/A', inline: true },
+        { name: '\u200B', value: '\u200B', inline: true },
+        { name: 'Participants', value: '0', inline: true },
+        { name: 'Ends', value: discordTimestamp, inline: true }
+      );
 
-      await interaction.channel.send({
-        embeds: [response],
-        components: [row],
-      });
-    } else {
-      const description = interaction.options.getString('description');
-
-      const response = await new EmbedBuilder()
-        .setColor(0x6ab7dd)
-        .setTitle(name)
-        .setThumbnail(hostPicURL)
-        .setDescription(description)
-        .addFields(
-          { name: 'Host', value: hostName },
-          { name: 'Prize', value: prize, inline: true },
-          { name: 'Winner', value: 'N/A', inline: true },
-          { name: '\u200B', value: '\u200B', inline: true },
-          { name: 'Participants', value: '0', inline: true },
-          { name: 'Ends', value: discordTimestamp, inline: true }
-        );
-
-      await interaction.channel.send({
-        embeds: [response],
-        components: [row],
-      });
-    }
+    await interaction.channel.send({
+      embeds: [response],
+      components: [row],
+    });
   },
 };
